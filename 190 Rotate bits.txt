@@ -1,0 +1,21 @@
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        int binary[32]={};
+        int i,j;
+        for (int index=31;index>=0;index--){
+            i = n%2;
+            j = n/2;
+            n = j;
+            binary[index]=i;
+        }
+        uint32_t ans=0;
+        for (i=0;i<32;i++){            
+            ans+=binary[i]*pow(2,i);
+        }
+        return ans;
+    }
+};
+
+Decimal to binary: from back to front, loop n%2,n/=2
+Reverse and binary to decimal: from front to back, loop ans+=b[i]*2^i

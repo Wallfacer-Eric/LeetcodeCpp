@@ -1,0 +1,15 @@
+class Solution     
+{
+    public:
+        void rotate(int nums[], int n, int k){
+            k = k%n;
+            reverse(nums, nums + n - k);
+            reverse(nums + n - k, nums + n);
+            reverse(nums, nums + n);        
+    }
+};
+
+comment:
+two methods:
+1. reverse left n-k, reverse remain, reverse all O(1)space
+2. copy and paste O(n)space
