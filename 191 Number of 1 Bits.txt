@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        int i,j=0;
+        while (n>=2){
+            i = n%2;
+            n = n/2;
+            j += i;
+        }
+        j+=n;
+        return j;
+    }
+};
+
+comment:
+decimal to binary

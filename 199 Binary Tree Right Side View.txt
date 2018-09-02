@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> ans;
+        queue<TreeNode* > q;
+        if (!root) return ans;
+        q.push(root);
+        while (!q.empty()){
+            queue<TreeNode*> level;
+            TreeNode* node=q.back();
+            ans.push_back(node->val);
+            while (!q.empty()){
+                node = q.front();
+                q.pop();
+                if (node->left)level.push(node->left);
+                if (node->right)level.push(node->right);
+            }
+            q=level;
+        }
+        
+        return ans;
+    }
+};
+
+comment:
+BFS, the rightest node of a level will be reached at last among nodes in the level.
