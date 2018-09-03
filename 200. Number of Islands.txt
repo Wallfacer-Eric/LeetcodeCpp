@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size();
+        if (m==0) return 0;
+        int n = grid[0].size();
+        if (n==0) return 0;
+        int num = 0;
+        for (int i=0;i<m;i++){
+            for (int j=0;j<n;j++){
+                if (grid[i][j]=='1'){
+                    num++;
+                    color(grid,i,j,m,n);
+                }
+            }
+        }
+        return num;
+    }
+    void color(vector<vector<char>>& grid, int i, int j, int m, int n){
+        grid[i][j] = '2';
+        if (i>0 && grid[i-1][j]=='1') color(grid,i-1,j,m,n);
+        if (j>0 && grid[i][j-1]=='1') color(grid,i,j-1,m,n);
+        if (i<m-1 && grid[i+1][j]=='1') color(grid,i+1,j,m,n);
+        if (j<n-1 && grid[i][j+1]=='1') color(grid,i,j+1,m,n);
+    }
+};
+
+comment:
+1. cpp 2d vector as parameter of function:
+    vector< vector<int> >matrix(n);
+    for(int i=0;i<n;i++)
+       matrix[i].resize(n);
+    for(int i=0;i<n;i++)
+       for(int j=0;j<n;j++)
+          matrix[i][j]=0;
+    void xxx(vector<vector<int> >&matrix)
+2. go through and color
