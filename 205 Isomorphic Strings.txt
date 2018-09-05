@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        if (s.size()!=t.size()) return false;
+        if (s.size()==0) return true;
+        map <char,char> Map1;
+        map <char,char> Map2;
+        for (int i=0;i<s.size();i++){
+            if (Map1.find(s[i])==Map1.end()) Map1[s[i]]=t[i];
+            else if (Map1[s[i]]!=t[i]) return false;
+            if (Map2.find(t[i])==Map2.end()) Map2[t[i]]=s[i];
+            else if (Map2[t[i]]!=s[i]) return false;           
+        }
+        return true;
+    }
+};
+
+comment:
+cpp map:       map<type,type> name; .find not find return .end
+use two map, easy

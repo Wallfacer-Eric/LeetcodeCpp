@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool isHappy(int n) {
+        if (n<=0) return false;
+        if (n==1) return true;
+        set<int> hist;        
+        while(1){
+            int t;
+            int tmp=0;
+            while (n!=0){             
+                t=n%10;
+                tmp+=t*t;
+                n/=10;
+            }
+            if (tmp==1) return true;
+            if (hist.end()!=hist.find(tmp)) {
+                return false;
+            }
+            else{
+                hist.insert(tmp);
+                n = tmp;
+            }
+        }
+    }
+};
+
+comment:
+usage of set: set.find(value) if not find return end pointer
+maintain a set, if the process of computing starts a loop, return false, since the process will stable in not more than 1000, 
+so even a not happy number can be detected in constant time.

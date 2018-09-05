@@ -1,0 +1,27 @@
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        if (head==NULL) return head;
+        else{
+        struct ListNode* dummy = head;
+        while (head->val==val){
+            dummy=head->next;
+            head=head->next;
+            if (head==NULL) break;
+        }
+        while (head!=NULL && head->next!=NULL){
+            if (head==NULL) break;
+            if (head->next->val==val){
+                head->next = head->next->next;
+            }
+            else{
+                head = head->next;
+            }
+        }
+        return dummy;
+        }
+    }
+};
+
+comment:
+in cpp, always check wheter a struct pointer is null before quote its element 
