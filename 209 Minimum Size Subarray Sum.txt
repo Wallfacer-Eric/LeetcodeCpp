@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int minSubArrayLen(int s, vector<int>& nums) {
+        int i=0;
+        int j=0;
+        int sum=0;
+        int min=nums.size();
+        while(i<nums.size()){
+            sum+=nums[i++];
+            if (sum>=s){
+                while(1){
+                    if (sum-nums[j]>=s){
+                        sum-=nums[j++];
+                    }
+                    else break;
+                }
+                if (i-j<min) min = i-j;
+            }
+        }
+        if (sum<s) return 0;
+        return min;
+    }
+};
+
+comment:
+double iterator.
+fast run until sum >= s
+slow run until next run will lead to sum < s
+record fast-slow as a length, maintain a min length
+O(n)

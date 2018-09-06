@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n==0){return 0;}
+        if (n==1){return nums[0];}
+        int *list =new int[n];
+        //============================================  choose head, not choose tail
+        for(int i=0;i<n;i++){
+            list[i]=0;
+        }
+        list[0]=nums[0];
+        list[1]=nums[0];
+        for(int i=2;i<n-1;i++){
+            list[i] = max(list[i-2]+nums[i],list[i-1]);
+        }
+        int case1 = list[n-2];
+        //============================================  choose none of head and tail
+        for(int i=0;i<n;i++){
+            list[i]=0;
+        }
+        list[0]=0;
+        list[1]=nums[1];
+        for(int i=2;i<n-1;i++){
+            list[i] = max(list[i-2]+nums[i],list[i-1]);
+        }
+        int case2 = list[n-2];
+        //===========================================  choose tail, not choose head
+        for(int i=0;i<n;i++){
+            list[i]=0;
+        }
+        list[n-1]=nums[n-1];
+        list[n-2]=nums[n-1];
+        for (int i=n-3; i>0; i--){
+            list[i] = max(list[i+2]+nums[i],list[i+1]);
+        }
+        int case3 = list[1];
+        return max(case1,max(case2,case3));
+    }
+};
+
+comment:
+compare to the house robber 1, I just set three cases to go through three possibility of the head and tail elements pair, 
+and then do the same thing for remain not loop house in three cases.
