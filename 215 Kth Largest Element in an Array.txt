@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        return Qsort(nums,0,nums.size()-1,k);
+    }
+    int Qsort(vector<int>& nums,int lo, int hi, int k){
+        if (lo>=hi) return nums[lo];
+        int i = lo;
+        int j = hi;
+        int pivot = nums[lo];
+        int t;
+        while(i<j){
+            while (i<j && nums[j]>=pivot) j--;
+            t=nums[i];
+            nums[i]=nums[j];
+            nums[j]=t;
+            while (i<j && nums[i]<=pivot) i++;
+            t=nums[i];
+            nums[i]=nums[j];
+            nums[j]=t;
+        }   
+        //cout<< pivot<<' '<<i<<' ';
+        //cout<<nums[0]<<nums[1]<<nums[2]<<nums[3]<<nums[4]<<nums[5]<<' ';
+        //cout<< hi-i+1<<endl;
+        if (hi-i+1<k){
+            k -= (hi-i+1);
+            return Qsort(nums,lo,i-1,k);
+        }
+        else if (hi-i+1>k){
+            return Qsort(nums,i+1,hi,k);
+        }
+        else return nums[i];
+    }
+};
+
+comment:
+Quick sort, when partition, compare the right part size with k, then recursive
