@@ -1,0 +1,10 @@
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        return set<int>(nums.begin(),nums.end()).size()!=nums.size();
+    }
+};
+
+comment:
+set size shrink if duplicate, compare the set size and the nums size
+use set<int>(nums.begin(),nums.end())to form the set immediately

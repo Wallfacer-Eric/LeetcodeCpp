@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector <vector<int>> ans;
+        vector <int> seq;
+        check(k,n,seq,ans,1);
+        return ans;
+    }
+    void check(int k, int n, vector<int>& seq, vector<vector<int>>& ans,int i){
+        
+        if ((k==0)&&(n==0)){
+            ans.push_back(seq);
+            return;
+        }
+        if ((i==10)||(n<0)){
+            return;
+        }
+        check(k,n,seq,ans,i+1);
+        seq.push_back(i);
+        check(k-1,n-i,seq,ans,i+1);
+        seq.pop_back();
+    }
+};
+
+comment:
+recursive, set two end condition one is success, two is failure, each time not add the number start a new, and add the number start a new then pop it
