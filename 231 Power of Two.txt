@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        if (n<1) return false;
+        long int i = 1;
+        while (i<n) {i*=2;cout<<i<<endl;}
+        if (i==n) return true;
+        return false;
+    }
+};
+
+comment:
+
+mind 2 things
+1.  if the number is too large, the n/2 == (float)n/2 even it is actually not because float has limit of digits
+2.  use long int properly, because int may overfload sometimes

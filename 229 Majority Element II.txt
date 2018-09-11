@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans;
+        if (n==0) return ans;
+        int bar = n/3;
+        unordered_map<int,int> uset;
+        for (auto i : nums){
+            if (uset.find(i)==uset.end())uset.insert({i,1});
+            else uset[i]+=1;
+        }     
+        for (auto iter=uset.begin();iter!=uset.end();iter++){
+            if (iter->second>bar) ans.push_back(iter->first);
+        }
+        return ans;
+    }
+};
+
+comment:
+hash_table

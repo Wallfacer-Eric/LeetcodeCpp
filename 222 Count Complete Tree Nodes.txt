@@ -1,0 +1,45 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        int num=0;
+        while(root){
+            TreeNode* left = root->left;
+            TreeNode* right= root->right;
+            int lh = height(left);
+            int rh = height(right);
+            if (lh>rh){
+                num++;
+                num+=pow(2,lh)-1;
+                root = root->right;
+            }
+            else if (lh==rh){
+                num++;
+                num+=pow(2,rh)-1;
+                root = root->left;
+            }
+        }
+        return num;
+    }
+    int height(TreeNode* root){
+        if (!(root)) return 0;
+        int h = 0;
+        while(root){
+            h++;
+            root=root->right;
+        }
+        return h;
+    }
+};
+
+comment:
+this is a O(lgn**2) program, by checking the height of left subtree and right subtree, if same, that means right tree with rh is full
+just count root and whole right subtree and set root to root.left, if lh>rh, vice versa

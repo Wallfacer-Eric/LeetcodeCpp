@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        int len = 0;
+        int i,j = 0;
+        int m = matrix.size();
+        if (m==0) return 0;
+        int n = matrix[0].size();
+        while(i+len<m){
+            while(j+len<n){
+                if (matrix[i][j]=='1'){
+                    int cur=1;
+                    while ((i+cur<m)&&(j+cur<n)){
+                        int flag = 1;
+                        for (int k = i;k<=i+cur;k++){
+                            if (matrix[k][j+cur]=='0'){flag=0; break;}
+                        }
+                        if (flag==0)break;
+                        for (int k = j;k<=j+cur;k++){
+                            if (matrix[i+cur][k]=='0'){flag=0; break;}
+                        }
+                        if (flag==0)break;
+                        cur+=1;
+                    }
+                    len=max(len,cur);
+                }  
+                j+=1;
+            }
+            j=0;
+            i+=1;
+        }
+        return len*len;
+    }
+};
+
+comment:
+brute force, level by level check, quit checking as soon as possible if find it is not square
