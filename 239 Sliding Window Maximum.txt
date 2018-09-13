@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> maxwin;
+        int n = nums.size();
+        if (n==0) return maxwin;   
+        for (int i=k-1;i!=n;i++){
+            maxwin.push_back(nums[i]);
+            for (int j=i-k+1;j<=i;j++){
+                if (nums[j]>maxwin.back()) maxwin.back()=nums[j];
+            }
+        }
+        return maxwin;
+    }
+};
+
+comment:
+use a heap is very easy, in O(nlgn)
+but im lazy
