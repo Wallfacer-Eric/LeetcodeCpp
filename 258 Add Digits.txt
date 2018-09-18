@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int addDigits(int num) {
+        string s = to_string(num);
+        int ans=0;
+        for(auto i:s){
+            ans+=(int)i-'0';
+        }
+        if (ans<10) return ans;
+        return addDigits(ans);
+    }
+};
+
+comment:
+for single digit transformation, (int)i-'0' is a good choice

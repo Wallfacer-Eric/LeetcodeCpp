@@ -1,0 +1,24 @@
+// Forward declaration of isBadVersion API.
+bool isBadVersion(int version);
+
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        return helper(0,n);
+    }
+    int helper(int i, int j){
+        cout<<i<<' '<<j<<endl;
+        if (i>=j) return -1;
+        if (i+1==j){
+            if (!(isBadVersion(i))&&isBadVersion(j)) return j;
+            else return -1;
+        }
+        long int m = ((long int)i+(long int)j)/2;
+        bool r = isBadVersion(m);
+        if (r) return helper(i,m);
+        else return helper(m,j);
+    }
+};
+
+comment:
+divide and conquer

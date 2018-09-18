@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool isUgly(int num) {
+        int f[3] = {2,3,5};
+        while (num!=2 && num!=3 && num!=5){
+            if (num%2==0) {num/=2;continue;}
+            if (num%3==0) {num/=3;continue;}
+            if (num%5==0) {num/=5;continue;}
+            return false;
+        }
+        return true;
+    }
+};
+
+comment:
+brute force..

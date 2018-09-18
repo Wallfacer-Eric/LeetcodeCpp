@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        int label[26]={0};
+        for (auto i:s)label[(int)i-97]++;
+        for (auto i:t)label[(int)i-97]--;
+        for (auto i:label){
+            if (i!=0) return false;
+        }
+        return true;
+    }
+};
+
+comment:
+count the number of each letter
