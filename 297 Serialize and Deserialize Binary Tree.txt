@@ -1,0 +1,61 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        string ans = "";
+        if(!(root))return ans;
+        ans+=to_string(root->val);
+        string left = "";
+        string right = "";
+        if (root->left){
+            left = serialize(root->left);
+        }   
+        if (root->right){
+            right = serialize(root->right);
+        }
+        ans+='l';
+        ans+=to_string(left.length());
+        ans+='r';
+        ans+=to_string(right.length());
+        ans+='e';
+        ans+=left;
+        ans+=right;
+        return ans;
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        if (data.length()==0) return NULL;
+        TreeNode* head = new TreeNode(0);
+        string val = "";
+        int i=0;
+        while (data[i]!='l') val+=data[i++];
+        head->val = atoi(val.c_str());
+        val.clear();
+        i++;
+        while (data[i]!='r') val+=data[i++];
+        int l_len = atoi(val.c_str());
+        val.clear();
+        i++;
+        while (data[i]!='e') val+=data[i++];
+        int r_len = atoi(val.c_str());
+        i++;
+        head->left = deserialize(data.substr(i,l_len));
+        head->right = deserialize(data.substr(i+l_len,r_len));
+        return head;
+    }
+};
+
+
+comment:
+use string to simulate the pointer, use symbol to seperate the location of left and right, then recursively processing

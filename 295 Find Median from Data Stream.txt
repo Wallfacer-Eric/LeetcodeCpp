@@ -1,0 +1,30 @@
+import bisect
+class MedianFinder(object):
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.l = []
+
+    def addNum(self, num):
+        """
+        :type num: int
+        :rtype: void
+        """
+        #print self.data
+        bisect.insort(self.l, num)
+
+    def findMedian(self):
+        """
+        :rtype: float
+        """
+        return (self.l[len(self.l) / 2] + self.l[~(len(self.l) / 2)])/2.0
+
+
+# Your MedianFinder object will be instantiated and called as such:
+# obj = MedianFinder()
+# obj.addNum(num)
+# param_2 = obj.findMedian()
+
+
+bisect is a useful insorting tool
