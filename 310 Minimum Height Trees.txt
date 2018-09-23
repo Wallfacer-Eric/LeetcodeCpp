@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<int> findMinHeightTrees(int n, vector<pair<int, int>>& edges) {
+        if (n<3){
+            vector<int>ans;
+            ans.push_back(0);
+            if (n==2) ans.push_back(1);
+            return ans;
+        }
+        unordered_map<int,int> node;
+        for (auto i:edges){
+            if (node.find(i.first)==node.end())node[i.first]=1;
+            else node[i.first]++;
+            if (node.find(i.second)==node.end())node[i.second]=1;
+            else node[i.second]++;
+        }
+        for (int i=0;i!=edges.size();i++){
+            if (node[edges[i].first]==1 || node[edges[i].second]==1){            
+                if (node[edges[i].first]==1) {n--;node.erase(edges[i].first);}
+                if (node[edges[i].second]==1){n--;node.erase(edges[i].second);}
+                edges.erase(edges.begin()+i);
+                i--;
+            }
+        }
+        if (node.size()<=2) {
+            vector<int>ans;
+            for (auto i:node)ans.push_back(i.first);
+            return ans;
+        }
+        node.clear();
+        return findMinHeightTrees(n,edges);
+    }
+};
+
+comment:
+each time delete leaf

@@ -1,0 +1,30 @@
+class NumArray {
+public:
+    NumArray(vector<int> nums) {
+        sum.push_back(0);
+        for (auto i:nums){
+            sum.push_back(sum.back()+(int)i);
+        }
+    }
+    
+    void update(int i, int val) {
+        int temp = val-(sum[i+1]-sum[i]);
+        for (int j=i+1; j!=sum.size()+1;j++) sum[j]+=temp;
+    }
+    
+    int sumRange(int i, int j) {
+        return sum[j+1]-sum[i];
+    }
+private:
+    vector<int> sum;
+};
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * obj.update(i,val);
+ * int param_2 = obj.sumRange(i,j);
+ */
+
+comment:
+when update a element, traverse all sum include this element, modify
