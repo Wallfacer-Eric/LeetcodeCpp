@@ -1,0 +1,33 @@
+
+class Solution {
+public:
+    string removeDuplicateLetters(string s) {
+        if (s.size() < 2) return s;
+        int letter[26]={0};
+        for (auto i:s) letter[i-'a']++;
+        int pos = 0;
+        for (int i=0;i!=s.size();i++){
+            if ((int)s[i]<(int)s[pos])pos=i;
+            if (--letter[s[i]-'a']==0)break;
+        }
+        int i=0;
+        char temp=s[pos];
+        s = s.substr(pos+1);
+        while (i<s.size()){
+            if (s[i]==temp){
+                s.replace(i,1,"");
+                continue;
+            }
+            i++;
+        }
+        return temp + removeDuplicateLetters(s);
+    }
+};
+
+comment:
+greedy,
+Traverse string
+Keep the position of the smallest letter
+If current letter is the last letter in the string. Stop
+Drop all letters on the left of position, and delete all letters equal to letter in position, 
+recursively do the remain string, return this letter+the result 

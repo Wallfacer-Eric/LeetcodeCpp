@@ -1,0 +1,3 @@
+comment:
+dp
+each time divide the list to two part divide by l,m,r three position, solve each part and add up remain,

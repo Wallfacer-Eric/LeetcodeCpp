@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int nthSuperUglyNumber(int n, vector<int>& primes) {
+        vector<int> ugly(n,1);
+        vector<int> index(primes.size(),0);
+        vector<int> value(primes.size(),1);
+        int k=0;
+        while (k<n){
+            int x = *min_element(value.begin(),value.end());
+            ugly[k] = x;
+            for (int i=0;i!=value.size();i++){
+                if (x==value[i]){
+                    value[i] = ugly[index[i]] * primes[i];
+                    index[i]++;
+                }
+            }        
+            k++;
+        }
+        return ugly.back();
+    }
+};
+
+comment:
+keep k recorders, which record the times of a certain prime, each time when a value is choosen, the corresponding recorder++
+always choose the samllest value among all k values possible. k value at first are all 1, at second it will be [2,3,5,7]
+after first time prime is motiply.
+O(logkn) logk:min heap find min, n numbers in all
