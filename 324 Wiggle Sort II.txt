@@ -1,0 +1,25 @@
+class Solution:
+    def wiggleSort(self, nums):
+        nums.sort()
+        half = len(nums[::2])
+        nums[::2], nums[1::2] = nums[:half][::-1], nums[half:][::-1]
+
+comment:
+nlogn solution:
+sort the array, divide the array into two parts,
+let the first half on the odd position
+let the second half on the even position
+since equal midean will be the end of the first and start of second, they wont meet because start
+of second half should be compared to start of first half
+
+n solution:
+find the median(use quicksort to find, logn)
+use three partition, pointer i=0,j=0,k=n-1
+if *j>m
+    swap(*j,*(k--))
+if *j<m
+    swap(*(j++),*(i++))
+else
+    j++
+
+after three partition, divide into two half, same as previous solution
