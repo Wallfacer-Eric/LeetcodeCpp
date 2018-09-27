@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        long int k=1;
+        while(k<=n){          
+            if (k==n) return true;
+            k*=3;
+        }
+        return false;
+    }
+};
+
+comment:
+simple loop
+the special solution use 3^19 to mod n, since n is a int, I think it is too narrow

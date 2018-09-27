@@ -1,0 +1,47 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (!(head)) return NULL;
+        ListNode* copy = head;
+        int count = 1;
+        while (head->next){
+            head=head->next;
+            count++;
+        }
+        count = count/2;
+        ListNode* tail = head;
+        head = copy;
+        int move = 1;
+        while (head->next && count){
+            if (move==1){
+                count--;
+                cout<<head->next->val<<endl;
+                tail->next = head->next;
+                head->next = head->next->next;
+                tail->next->next = NULL;
+                tail = tail->next;
+                move = 0;
+            }
+            else{
+                head = head->next;
+                move = 1;
+            }
+        }
+        return copy;
+    }
+};
+
+
+
+comment:
+find tail, count even position node
+use a bool symbol to represent wheter is even
+move even position node to the tail

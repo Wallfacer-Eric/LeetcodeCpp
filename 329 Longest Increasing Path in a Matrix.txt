@@ -1,0 +1,48 @@
+
+class Solution {
+public:
+    int longestIncreasingPath(vector<vector<int>>& matrix) {
+        int m = matrix.size();
+        if (m==0) return 0;
+        int n = matrix[0].size();
+        if (n==0) return 0;
+        vector<vector<bool>>state;
+        vector<vector<bool>>temp;
+        for (int i=0;i<m;i++){
+            state.push_back(vector<bool>(n,true));
+            temp.push_back(vector<bool>(n,false));
+        }
+        int round = 0;
+        while (true){
+            bool remain = false;
+            for (int i=0;i<m;i++){
+                for (int j=0;j<n;j++){
+                    if (state[i][j]){
+                        remain = true;
+                        if (i>0   && matrix[i][j]>matrix[i-1][j]) temp[i-1][j] = true;
+                        if (i<m-1 && matrix[i][j]>matrix[i+1][j]) temp[i+1][j] = true;
+                        if (j>0   && matrix[i][j]>matrix[i][j-1]) temp[i][j-1] = true;
+                        if (j<n-1 && matrix[i][j]>matrix[i][j+1]) temp[i][j+1] = true;
+                    }
+                }
+            }
+            if (!(remain)) break;
+            for (int i=0;i<m;i++){
+                for (int j=0;j<n;j++){
+                    state[i][j]=temp[i][j];
+                    temp[i][j]=false;
+                }
+            }            
+            round++;
+        }
+        return round;
+    }
+};
+
+
+comment:
+dynamic programming
+build a state matrix (it will be easy to build two)
+initially all position are true
+each round true position can let its lower neighbors be true
+when nobody true, return the round number

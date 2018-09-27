@@ -1,0 +1,33 @@
+class Solution(object):
+    def countRangeSum(self, nums, lower, upper):
+        """
+        :type nums: List[int]
+        :type lower: int
+        :type upper: int
+        :rtype: int
+        """
+        first = [0]
+        for i in nums: first.append(first[-1]+i)
+        return self.merge_sort(first,0,len(first),lower, upper)
+    def merge_sort(self,first,lo,hi,lower, upper):
+        if lo>=hi: return 0
+        mid = (lo+hi)/2
+        if mid==lo: return 0
+        count = self.merge_sort(first,lo,mid,lower, upper)+self.merge_sort(first,mid,hi,lower, upper)
+        i=j=mid
+        for left in first[lo:mid]:
+            while i<hi and first[i]-left<lower: i+=1
+            while j<hi and first[j]-left<=upper:j+=1
+            count+=j-i
+        first[lo:hi]=sorted(first[lo:hi])
+        return count
+
+1. get the sum array, from now on, add a sequence will not depend on the sequence
+just depend on two numbers, so we can sort the array
+2. merge sort, recursion
+each time suppose we get count from left and right, and they are sorted
+now use two pointers start from mid to represent the boundary of valid right edge,
+for each left edge in left part, if i-left not valid, increase i, if j-left not surpass upper, increase j
+then we get a range i to j, in which right - left satisfied, add j-i to count
+i and j will keep increasing since left is increasing, so it is O(n)
+Finally sort the left part and right part to a sorted array and return count
