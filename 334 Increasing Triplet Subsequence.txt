@@ -1,0 +1,23 @@
+class Solution:
+    def increasingTriplet(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        if len(nums)<3: return False
+        temp = max(nums)
+        min1 = temp
+        min2 = temp
+        for i in nums:
+            if i<min1:
+                min1=i
+                continue
+            if i>min1 and i<min2:
+                min2=i
+                continue
+            if i>min2:
+                return True
+        return False
+
+comment:
+maintain two value min1 and min2, then compare
