@@ -1,0 +1,23 @@
+class Solution:
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        freq = {}
+        for i in nums:
+            if i in freq: freq[i]+=1
+            else: freq[i]=1
+        key_ = []
+        for i in freq.items():
+            key_.append(i)
+        key_.sort(key=lambda x:x[1])
+        key_.reverse()
+        print(key_)
+        key = []
+        for i in key_:
+            key.append(i[0])
+        return key[:k]
+
+

@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxEnvelopes(vector<pair<int, int>>& envelopes) {
+        sort(envelopes.begin(),envelopes.end(),[](pair<int,int>A,pair<int,int>B)
+             {return A.first<B.first || (A.first==B.first && A.second>B.second);});
+        vector<int> dp;
+        for (auto i:envelopes){
+            auto iter = lower_bound(dp.begin(),dp.end(),i.second);
+            if (iter==dp.end()){
+                dp.push_back(i.second);
+            }
+            else{
+                *iter = i.second;
+            }
+        }
+        return dp.size();
+    }
+};
+
+comment:
+sort w, if equal w, h bigger first
+so that when we just check h in this order, it will no mistake
+then apply LIS to h
