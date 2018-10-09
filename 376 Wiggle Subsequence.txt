@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int wiggleMaxLength(vector<int>& nums) {
+        if(nums.size()<2) return nums.size();
+        vector<int>diff;
+        diff.push_back(0);
+        for (int i=1;i<nums.size();i++){
+            if (nums[i]-nums[i-1]!=0) diff.push_back(nums[i]-nums[i-1]);
+        }
+        int seq = 1;
+        int now = diff[0];
+        for (int i=1;i<nums.size();i++){
+            if(i==1 && now!=diff[1]){
+                seq++;
+                now=diff[1];
+            }
+            else if(now*diff[i]<0){
+                seq++;
+                now = diff[i];
+            }
+        }
+        return seq;
+    }
+};
+
+comment:
+build a diff vector(only accept non continus equal number)
+count the times of change of sign of diff

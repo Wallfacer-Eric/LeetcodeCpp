@@ -1,0 +1,4 @@
+return a+b
+
+comment:
+use bit manipulation in ALU

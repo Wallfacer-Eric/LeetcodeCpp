@@ -1,0 +1,21 @@
+class Solution:
+    ans = 0
+    def combinationSum4(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        
+        nums.sort()
+        combs = [1]+[0]*target
+        for i in range(target+1):
+            for num in nums:
+                if num>i:  break
+                if num==i: combs[i]+=1
+                if num<i:  combs[i]+=combs[i-num]
+        return combs[-1]
+
+build a combs vector len=target+1
+for each position of combs vector, for each num, if num<position, add previous combs
+if = , add one

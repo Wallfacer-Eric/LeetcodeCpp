@@ -1,0 +1,24 @@
+class Solution:
+    def lexicalOrder(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        ans = []
+        seq = []
+        def helper(n,seq):
+            if int("".join(seq))>n: return
+            ans.append(int("".join(seq)))
+            for i in ['0','1','2','3','4','5','6','7','8','9']:
+                seq.append(i)
+                helper(n,seq)
+                seq.pop()
+        for i in ['1','2','3','4','5','6','7','8','9']:
+            seq.append(i)
+            helper(n,seq)
+            seq.pop()
+        return ans
+
+
+comment:
+DFS 

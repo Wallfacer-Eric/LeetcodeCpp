@@ -1,0 +1,49 @@
+import random
+class RandomizedCollection:
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.ran=[]
+
+    def insert(self, val):
+        """
+        Inserts a value to the collection. Returns true if the collection did not already contain the specified element.
+        :type val: int
+        :rtype: bool
+        """
+        bisect.insort(self.ran,val)
+        return True
+        
+
+    def remove(self, val):
+        """
+        Removes a value from the collection. Returns true if the collection contained the specified element.
+        :type val: int
+        :rtype: bool
+        """
+        i = bisect.bisect_left(self.ran,val)
+        if i!=len(self.ran) and self.ran[i]==val:
+            self.ran.pop(i)
+            return True
+        return False
+
+    def getRandom(self):
+        """
+        Get a random element from the collection.
+        :rtype: int
+        """
+        index = random.randint(0,len(self.ran)-1)
+        return self.ran[index]
+        
+
+
+# Your RandomizedCollection object will be instantiated and called as such:
+# obj = RandomizedCollection()
+# param_1 = obj.insert(val)
+# param_2 = obj.remove(val)
+# param_3 = obj.getRandom()
+
+comment:
+keep a sorted array, insert O(lgn), remove O(lgn)

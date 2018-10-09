@@ -1,0 +1,13 @@
+class Solution:
+    def lastRemaining(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        arr = range(1, n+1)
+        while len(arr) > 1:
+            arr = arr[1::2][::-1]
+        return arr[0]
+
+comment:
+a[1::2] from 1, jump 1(move 2)

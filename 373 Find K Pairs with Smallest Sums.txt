@@ -1,0 +1,37 @@
+class Solution:
+    def kSmallestPairs(self, nums1, nums2, k):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        def sortinsert(ans,t,lo,hi):
+            if lo+1==hi:
+                ans1 = ans[0:lo+1]
+                ans1.append(t)
+                ans2 = ans[hi:]
+                return ans1+ans2
+            mid = (lo+hi)//2
+            if sum(t)<sum(ans[mid]):
+                return sortinsert(ans,t,lo,mid)
+            else:
+                return sortinsert(ans,t,mid,hi)
+        ans = []
+        for i in nums1:
+            for j in nums2:
+                if len(ans)<k:
+                    if len(ans)==0: 
+                        ans.append([i,j])
+                        continue
+                    ans = sortinsert(ans,[i,j],0,len(ans))
+                else:
+                    if ans[-1][0]+ans[-1][1]<i+j:
+                        continue;
+                    ans = sortinsert(ans,[i,j],0,len(ans))
+                    ans.pop()
+        return ans
+    
+comment:
+keep a sorted array based on sum of pair, keep inserting all pairs
+when array longer than k, pop the biggest

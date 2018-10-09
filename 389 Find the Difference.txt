@@ -1,0 +1,20 @@
+class Solution:
+    def findTheDifference(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        s = sorted(list(s))
+        t = sorted(list(t))
+        i=0
+        while i<len(s):
+            if s[i]!=t[i]:
+                return t[i]
+            i+=1
+        return t[-1]
+        
+
+comment:
+since difference is one letter
+sort two and compare until diffrerence

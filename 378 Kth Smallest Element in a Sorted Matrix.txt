@@ -1,0 +1,17 @@
+class Solution:
+    def kthSmallest(self, matrix, k):
+        """
+        :type matrix: List[List[int]]
+        :type k: int
+        :rtype: int
+        """
+        seq = []
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if i*j>k: continue
+                seq.append(matrix[i][j])
+        seq.sort()
+        return seq[k-1]
+
+comment:
+push the matrix into a list, sort

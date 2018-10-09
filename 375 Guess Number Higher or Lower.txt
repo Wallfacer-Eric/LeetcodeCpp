@@ -1,0 +1,20 @@
+// Forward declaration of guess API.
+// @param num, your guess
+// @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
+int guess(int num);
+
+class Solution {
+public:
+    int guessNumber(int n) {
+        return helper(1,(long int)n);
+    }
+    int helper(long int lo,long int hi){
+        long int mid = (lo+hi)/2;
+        int i = guess(mid);
+        if (i==0) return mid;
+        if (i==-1) return helper(lo,mid);
+        if (i==1)return helper(mid+1,hi);
+    }
+};
+
+binary search
