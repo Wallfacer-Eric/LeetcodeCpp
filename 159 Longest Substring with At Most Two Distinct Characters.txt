@@ -1,0 +1,34 @@
+class Solution:
+    def lengthOfLongestSubstringTwoDistinct(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        store = []
+        s_set = dict()
+        maxlen = 0
+        for i in s:
+            #print(store,s_set,i)
+            if len(s_set)==2 and i not in s_set:
+                maxlen = max(maxlen,len(store))
+                for j in range(len(store)):
+                    s_set[store[j]]-=1
+                    if s_set[store[j]]==0:
+                        del s_set[store[j]]
+                        store = store[j+1:]
+                        break
+            store.append(i)
+            if i in s_set: s_set[i]+=1
+            else: s_set[i]=1
+        maxlen = max(maxlen,len(store))
+        return maxlen
+ 
+comment:
+keep a list to store sublist
+keep a dict to store unique char of list
+if setlen = 2 and add a not in set char, update maxlen
+we delete from first of list to end, until somebody in dict = 0, delete the key and break
+
+                    
+                
+        

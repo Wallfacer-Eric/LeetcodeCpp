@@ -1,0 +1,27 @@
+class Solution:
+    def licenseKeyFormatting(self, S, K):
+        """
+        :type S: str
+        :type K: int
+        :rtype: str
+        """
+        S = "".join(S.split('-'))
+        if len(S)==0: return ""
+        new = []
+        k = K
+        for i in range(len(S)-1,-1,-1):
+            if ord(S[i])>96:
+                new.append(chr(ord(S[i])-32))
+            else:
+                new.append(S[i])
+            k-=1
+            if k==0:
+                k=K
+                new.append('-')
+        if new[-1]=='-':
+            new.pop()
+        new.reverse()
+        new = "".join(new)
+        return new
+        
+easy

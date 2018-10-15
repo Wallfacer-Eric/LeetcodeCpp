@@ -1,0 +1,37 @@
+class Solution:
+    def nextClosestTime(self, time):
+        """
+        :type time: str
+        :rtype: str
+        """
+        t = []
+        for i in time:
+            if i!=':':
+                t.append(int(i))
+        t_list = t
+        t = sorted(set(t))
+        print (t_list)
+        print(t)
+        for j in t:
+            if j>t_list[3]:
+                t_list[3]=j
+                return str(t_list[0])+str(t_list[1])+':'+str(t_list[2])+str(t_list[3])
+        for j in t:
+            if j>t_list[2] and j<6:
+                t_list[2]=j
+                return str(t_list[0])+str(t_list[1])+':'+str(t_list[2])+str(t[0])
+        for j in t:
+            if j>t_list[1] and t_list[0]*10+j<24:
+                t_list[1]=j
+                return str(t_list[0])+str(t_list[1])+':'+str(t[0])+str(t[0])
+        for j in t:
+            if j>t_list[0] and j*10+t_list[1]<24:
+                t_list[0]=j
+                return str(t_list[0])+str(t[0])+':'+str(t[0])+str(t[0])
+        return str(t[0])+str(t[0])+':'+str(t[0])+str(t[0])
+        
+
+comment:
+use ordered unique array to store time digit
+check larger time digit by digit from back to start, while keeping time validity, if cannot find a larger
+return next day smaller time

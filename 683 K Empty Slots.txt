@@ -1,0 +1,33 @@
+import bisect
+class Solution:
+    def kEmptySlots(self, flowers, k):
+        """
+        :type flowers: List[int]
+        :type k: int
+        :rtype: int
+        """
+        bloom = []
+        for i in range(len(flowers)):
+            left = bisect.bisect_left(bloom,flowers[i])-1
+            bisect.insort_left(bloom,flowers[i])
+            cur = left+1
+            right = left+2
+            if left>=0:
+                if bloom[cur] - bloom[left] - 1 == k : return i+1
+            if right<len(bloom):
+                if bloom[right]-bloom[cur]  - 1 == k : return i+1
+        return -1
+            
+
+comment:
+my way:
+keep insort(orderly) to an array
+each insort compare itself with left and right (if valid), calculate if gap is k
+each insort logn, total O(nlgn)
+
+better way:
+since we have day2pos
+build pos2day
+get kmin = min(pos2day[1:k+1]),
+check if max(p2d[i],p2d[i+k+1])<kmin, if not, i+1, update kmin()...I think actually it is still Onlgn
+because update kmin should use heap, insert of heap is logn 
