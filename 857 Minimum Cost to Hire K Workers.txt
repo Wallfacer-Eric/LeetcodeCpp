@@ -1,0 +1,21 @@
+class Solution:
+    def mincostToHireWorkers(self, quality, wage, K):
+        workers = sorted([float(w) / q, q] for w, q in zip(wage, quality))
+        res = float('inf')
+        qsum = 0
+        heap = []
+        for r, q in workers:
+            heapq.heappush(heap, -q)
+            qsum += q
+            if len(heap) > K: qsum += heapq.heappop(heap)
+            if len(heap) == K: res = min(res, qsum * r)
+        return res
+            
+sort people by their efficiency
+use a k-width window slide through the sorted people array
+when the window slide right:
+divide left most ratio
+minus left most money and delete left most person
+right add new person
+multipy current left most ratio
+and check max

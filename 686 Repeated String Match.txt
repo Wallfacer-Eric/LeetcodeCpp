@@ -1,0 +1,20 @@
+class Solution:
+    def repeatedStringMatch(self, A, B):
+        """
+        :type A: str
+        :type B: str
+        :rtype: int
+        """
+        times = -(-len(B)//len(A))
+        if B in A*times:
+            return times
+        if B in A*(times+1):
+            return times+1
+        return -1
+            
+
+A should be repeat enough time to cover B
+this number is ceil[B/A]
+-(-len(B)//len(A)) is a way to represent ceil
+
+then check B is the substring or not

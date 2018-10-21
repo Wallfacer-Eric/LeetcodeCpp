@@ -1,0 +1,83 @@
+# """
+# This is the robot's control interface.
+# You should not implement it, or speculate about its implementation
+# """
+#class Robot:
+#    def move(self):
+#        """
+#        Returns true if the cell in front is open and robot moves into the cell.
+#        Returns false if the cell in front is blocked and robot stays in the current cell.
+#        :rtype bool
+#        """
+#
+#    def turnLeft(self):
+#        """
+#        Robot will stay in the same cell after calling turnLeft/turnRight.
+#        Each turn will be 90 degrees.
+#        :rtype void
+#        """
+#
+#    def turnRight(self):
+#        """
+#        Robot will stay in the same cell after calling turnLeft/turnRight.
+#        Each turn will be 90 degrees.
+#        :rtype void
+#        """
+#
+#    def clean(self):
+#        """
+#        Clean the current cell.
+#        :rtype void
+#        """
+
+class Solution:
+
+    def cleanRoom(self, robot):
+        """
+        :type robot: Robot
+        :rtype: None
+        """
+        x=0
+        y=0
+        dx = [0,1,0,-1]
+        dy = [1,0,-1,0]
+        d=0
+        clean = set()
+        def helper(robot):
+            nonlocal x
+            nonlocal y
+            nonlocal d
+            nonlocal clean
+            if (x,y) in clean: return
+            clean.add((x,y))
+            robot.clean()
+            for i in range(4):
+                if (robot.move()):
+                    x+=dx[d]
+                    y+=dy[d]
+                    helper(robot)
+                    robot.turnRight()
+                    robot.turnRight()
+                    robot.move()
+                    robot.turnRight()
+                    robot.turnRight()
+                    x-=dx[d]
+                    y-=dy[d]
+                robot.turnRight()
+                d+=1
+                if d==4: d=0
+        helper(robot)
+                
+
+we should set initial node as (0,0) and store it into a set, then we use BFS
+each time we go to four directions and use backtrack
+since first direction is up, we use
+For Four Directions:
+if (F)  // if wall, dont do things after
+  DFS(x,y+1)
+  R 
+  R
+  F
+  R
+  R
+R

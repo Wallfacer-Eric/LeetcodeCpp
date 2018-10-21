@@ -1,0 +1,25 @@
+class Solution:
+    def backspaceCompare(self, S, T):
+        """
+        :type S: str
+        :type T: str
+        :rtype: bool
+        """
+        s=[]
+        for i in S:
+            if i!='#':
+                s.append(i)
+            elif len(s)>0:
+                s.pop()
+        t=[]
+        for i in T:
+            if i!='#':
+                t.append(i)
+            elif len(t)>0:
+                t.pop()
+        if len(s)!=len(t): return False
+        for i in range(len(s)):
+            if s[i]!=t[i]: return False
+        return True
+        
+each time get # delete from stack

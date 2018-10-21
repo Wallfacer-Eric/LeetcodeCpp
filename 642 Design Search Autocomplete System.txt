@@ -1,0 +1,46 @@
+class AutocompleteSystem:
+
+    def __init__(self, sentences, times):
+        """
+        :type sentences: List[str]
+        :type times: List[int]
+        """
+        self.mix = {s:t for s,t in zip(sentences,times)}
+        #self.mix.sort(key=lambda x:(x[1],x[0]))
+        self.cur = ""
+        self.curmix = list(self.mix.items())
+
+    def input(self, c):
+        """
+        :type c: str
+        :rtype: List[str]
+        """
+        if c=="#":
+            if self.cur in self.mix:
+                self.mix[self.cur]+=1
+            else:
+                self.mix[self.cur]=1
+            self.curmix = list(self.mix.items())
+            self.cur=""
+            return []
+        else:
+            self.cur+=c
+            i = 0
+            while i<len(self.curmix):
+                if not self.curmix[i][0].startswith(self.cur):
+                    self.curmix.pop(i)
+                else:
+                    i+=1
+            ans = sorted(self.curmix,key=lambda x:(-x[1],x[0]))
+            ans = ans[:3]
+            return [s[0] for s in ans]
+
+
+# Your AutocompleteSystem object will be instantiated and called as such:
+# obj = AutocompleteSystem(sentences, times)
+# param_1 = obj.input(c)
+
+sort according to time first and string second as mix
+maintain a current input, if #, update
+maintain a current mix, as avaiable sentences sorted, if # update
+if not #, pop all non prefix of current input, resort it and cut it to at most length 3, return

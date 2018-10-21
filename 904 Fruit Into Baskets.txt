@@ -1,0 +1,26 @@
+class Solution:
+    def totalFruit(self, tree):
+        """
+        :type tree: List[int]
+        :rtype: int
+        """
+        bas = set()
+        store = []
+        maxlen = 0
+        for i in range(0,len(tree)):
+            #print(store)
+            bas.add(tree[i])
+            store.append(tree[i])
+            if len(bas)==3:
+                maxlen = max(maxlen,len(store)-1)
+                temp = store[-2]
+                for j in range(len(store)-2,-1,-1):
+                    if store[j]!=temp:
+                        store = store[j+1:]
+                        break
+                bas = set(store)
+        maxlen = max(maxlen,len(store))
+        return maxlen
+
+use a set to store unique fruit, a list to store fruit, each time when the set len = 3
+start from the list[-2] check the first differ from list[-2], delete from start to this

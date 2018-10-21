@@ -1,0 +1,42 @@
+# """
+# This is Master's API interface.
+# You should not implement it, or speculate about its implementation
+# """
+#class Master:
+#    def guess(self, word):
+#        """
+#        :type word: str
+#        :rtype int
+#        """
+import random
+class Solution:
+    def findSecretWord(self, wordlist, master):
+        """
+        :type wordlist: List[Str]
+        :type master: Master
+        :rtype: None
+        """
+        def diff(word1,word2):
+            dif = 0
+            for i in range(6):
+                if word1[i]!=word2[i]: dif+=1
+            return dif
+        while len(wordlist)>0:
+            print(len(wordlist))
+            check = wordlist[random.randint(0,len(wordlist)-1)]
+            match = master.guess(check)
+            print(check,match)
+            if match == 6: break
+            temp = []
+            for word in wordlist:
+                if diff(check,word)==6-match:
+                    temp.append(word)
+            wordlist = temp
+ 
+
+random find a word and check the match m
+then delete all words of difference != 6-m
+repeat until found
+
+better way
+not random find, choose a word which can delete most, a word have minimum zero match

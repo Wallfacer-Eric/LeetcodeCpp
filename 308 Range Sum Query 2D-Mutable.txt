@@ -1,0 +1,51 @@
+class NumMatrix:
+
+    def __init__(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        """
+        self.mat = matrix
+        try:
+            self.sum = [[0]*(len(matrix[0])+1) for i in range(len(matrix)+1)]
+            for i in range(1,len(self.sum)):
+                for j in range(1,len(self.sum[0])):
+                    self.sum[i][j] = self.sum[i-1][j]+self.sum[i][j-1]-self.sum[i-1][j-1]+matrix[i-1][j-1]
+        except:
+            self.sum = matrix
+    def update(self, row, col, val):
+        """
+        :type row: int
+        :type col: int
+        :type val: int
+        :rtype: void
+        """
+        change = val-self.mat[row][col]
+        self.mat[row][col]=val
+        for i in range(row+1,len(self.sum)):
+            for j in range(col+1,len(self.sum[0])):
+                self.sum[i][j]+=change
+        
+        
+
+    def sumRegion(self, row1, col1, row2, col2):
+        """
+        :type row1: int
+        :type col1: int
+        :type row2: int
+        :type col2: int
+        :rtype: int
+        """
+        row2+=1
+        col2+=1
+        return self.sum[row2][col2]-self.sum[row1][col2]-self.sum[row2][col1]+self.sum[row1][col1]
+        
+
+
+# Your NumMatrix object will be instantiated and called as such:
+# obj = NumMatrix(matrix)
+# obj.update(row,col,val)
+# param_2 = obj.sumRegion(row1,col1,row2,col2)
+
+
+2D prefix sum array
+update one value should update all lower right sum data

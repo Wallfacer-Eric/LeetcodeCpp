@@ -1,0 +1,38 @@
+class Solution:
+    def calcEquation(self, equations, values, queries):
+        """
+        :type equations: List[List[str]]
+        :type values: List[float]
+        :type queries: List[List[str]]
+        :rtype: List[float]
+        """
+        m = {0:{0:0}}
+        for i in range(len(equations)):
+            if equations[i][0] in m:
+                m[equations[i][0]][equations[i][1]]=values[i]
+            else:m[equations[i][0]]={equations[i][1]:values[i]}
+            if equations[i][1] in m:
+                m[equations[i][1]][equations[i][0]]=1/values[i]
+            else:m[equations[i][1]]={equations[i][0]:1/values[i]}
+        ans = []
+        def check(start,goal,m,s):
+            if goal in m[start].keys(): return m[start][goal]
+            for node in m[start].keys():
+                if node not in s:
+                    s.add(node)
+                    res = check(node,goal,m,s)
+                    if res: return m[start][node]*res
+            return 0
+        for query in queries:
+            s = set()
+            if query[0] not in m:
+                ans.append(-1.0)
+                continue
+            res = check(query[0],query[1],m,s)
+            if res: ans.append(res)
+            else:   ans.append(-1.0)
+        return ans
+        
+build a dict1 num1:dict2  dict2 num2:ratio
+for each input, build key num1 and key num2
+then for each query, check(start,goal,map,history) recursively
