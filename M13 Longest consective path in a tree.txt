@@ -1,0 +1,19 @@
+class TreeNode:
+	def __init__(self,x):
+		self.val = x
+		self.children = []
+		self.weight = []
+
+longest = 0
+def longpath(self,root,longest):
+	pos_path = []
+	neg_path = []
+	for child in root.children:
+		(p,n)=self.longpath(root,longest)
+		if root.val>child.val:
+			pos_path.append(p)
+		if root.val<child.val:
+			neg_path.append(n)
+	longest = max(longest,max(pos_path)+max(neg_path) or 0)
+	return (max(pos_path) or 0,max(neg_path) or 0)
+	

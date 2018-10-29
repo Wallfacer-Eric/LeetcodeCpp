@@ -1,0 +1,9 @@
+l = [3,5,6,2,6,7,2,5]
+def insert(root,l,i):
+	if not root: return i
+	i = insert(root.left,l,i)
+	root.val=l[i]
+	i+=1
+	i = insert(root.right,l,i)
+	return i
+insert(root,l,0)
