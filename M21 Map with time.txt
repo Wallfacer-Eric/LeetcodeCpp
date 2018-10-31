@@ -1,0 +1,27 @@
+import bisect
+class time_map:
+	def __init__(self):
+		self.m = {}
+		self.pq = []
+	def insert(self,key,value,period):
+		cur = getCurTime()
+		m[key]=[value,cur+period]
+		pq.insort([cur+period,key])
+		delete()
+	def get(self,key):
+		if key not in m:
+			return
+		if m[key][1]<getCurTime():
+			delete()
+			return 
+		else:
+			return m[key][0]
+	def delete():
+		cur = getCurTime()
+		i=0
+		for i range(len(pq)):
+			if cur>=pq[i][0]:
+				del m[pq[i][1]]
+			else:
+				break
+		pq = pq[:i]
