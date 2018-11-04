@@ -1,0 +1,39 @@
+import collections
+class Solution:
+    def minWindow(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        if len(s)<len(t) or len(set(t))>len(set(t).intersection(set(s))):
+            return ""
+        need = len(t)
+        count = collections.Counter(t)
+        i=0
+        j=0
+        ln = len(s)+1
+        ls = s
+        flag = False
+        while j<len(s) or need==0:
+            if need==0:
+                if j-i<ln:
+                    flag=True
+                    ln=j-i
+                    ls=s[i:j]
+                if s[i] in count:
+                    count[s[i]]+=1
+                    if count[s[i]]>0:
+                        need+=1
+                i+=1
+            else:
+                if s[j] in count:
+                    count[s[j]]-=1
+                    if count[s[j]]>=0:
+                        need-=1
+                j+=1
+        if flag:
+            return ls
+        return ""
+
+hash table to store need of chars, right move when not satisfied, left move when satisfied

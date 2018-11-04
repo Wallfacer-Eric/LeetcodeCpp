@@ -1,0 +1,34 @@
+import heapq
+class Solution:
+    def lengthOfLongestSubstringKDistinct(self, s, k):
+        """
+        :type s: str
+        :type k: int
+        :rtype: int
+        """
+        if not s or k==0:
+            return 0
+        i=0
+        j=0
+        seq = {}
+        long = 0
+        while j<len(s):
+            if len(seq)==k and s[j] not in seq:
+                long=max(long,j-i)
+                while True:
+                    seq[s[i]]-=1
+                    if seq[s[i]]==0:
+                        del seq[s[i]]
+                        i+=1
+                        break 
+                    i+=1
+            if s[j] in seq:
+                seq[s[j]]+=1
+            else:
+                seq[s[j]]=1
+            j+=1
+        long = max(long,j-i)
+        return long
+        
+        
+slide window and hashmap

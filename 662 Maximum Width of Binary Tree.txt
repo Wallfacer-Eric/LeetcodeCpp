@@ -1,0 +1,27 @@
+
+class Solution:
+    left = []
+    right = []
+    def widthOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        queue = [(root,0,0)]
+        ans = 0
+        cur_level = 0
+        left = 0
+        for node,level,pos in queue:
+            if not node:
+                continue
+            queue.append((node.left,level+1,pos*2))
+            queue.append((node.right,level+1,pos*2+1))
+            if cur_level<level:
+                cur_level=level
+                left=pos
+            ans=max(ans,pos-left+1)
+        return ans
+            
+        
+
+BFS, each time push (node,level,pos) in queue, and update pos-left in same level
